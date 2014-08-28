@@ -199,10 +199,12 @@ $crsu_version = $mysql->crsu_version();
 					</div>
 					<div class="panel-body">
 						<a href="http://hipdysplasia.org/" target="_blank">
+						International Hip Dysplasia Institute <br>
 							<img id="ihdi-tooltip" class="img-thumbnail" src="img/logo.png" alt="ihdi-logo" data-toggle="tooltip" data-placement="right" title="Go to IHDI" />
 						</a>
 						<br></br>
 						<a href="http://vec.med.ubc.ca/" target="_blank">
+						Vaccine Evaluation Center <br>
 							<img id="vec-tooltip" class="img-rounded" src="img/vec_logo.png" alt="vec-logo" data-toggle="tooltip" data-placement="right" title="Go to VEC" />
 						</a>
 						<br></br>
