@@ -190,7 +190,7 @@ $vec_total_user = $mysql->vec_total_user();
 							<!-- td><button id="btn-conso-dev" class="btn btn-success btn-xs" type="button"><span class="glyphicon glyphicon-download-alt"></span> Download</button></td -->
 						</tr>
 					<tr>	
-					 <td> Suspended User accounts (Users that have not logged into REDCap or used the API in the past 180 number of days (specified above) will automatically have their account suspended <button id="btn_email_all1" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-send"></span> email all</button></td></td>	
+					 <td> Suspended User accounts <br>(Users that have not logged into REDCap or used the API in the past 180 number of days (specified above) will automatically have their account suspended <button id="btn_email_all1" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-send"></span> email all</button></td></td>	
 					 <td> <?php echo $suspended_user_num;  ?></td>
 					 <td>
 								<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#conso_active_user1">
