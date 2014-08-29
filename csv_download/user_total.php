@@ -12,6 +12,6 @@ header("Content-disposition: attachment;filename=$filename");
 
 print "Username,First Name,Last Name,E-mail\n";
 while ( $result = db_fetch_array($sql) ) { 
-	print $result['username'].",".$result['user_firstname'].",".$result['user_lastname']." ".$result['user_email']."\n";
+	print $result['username'].",".$result['user_firstname'].",".$result['user_lastname'].",".$result['user_email']."\n";
 }
 ?>
