@@ -192,7 +192,7 @@ $crsu_version = $mysql->crsu_version();
 						</table>
 					</div>
 				</div>
-				
+				<!--
 				<div class="panel panel-danger">
 					<div class="panel-heading">
 						<h3 class="panel-title">Clients</h3>
@@ -210,7 +210,7 @@ $crsu_version = $mysql->crsu_version();
 						<br></br>
 						<a href="#" target="_blank">CTU</a>
 					</div>
-				</div>
+				</div> -->
 				<script>
 					$('#ihdi-tooltip').tooltip('hide');
 					$('#vec-tooltip').tooltip('hide');
