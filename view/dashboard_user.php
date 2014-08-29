@@ -19,7 +19,7 @@ $conso_last6month_user_sql = db_query($mysql->conso_last6month_user());
 $conso_last6month_user = mysqli_num_rows($conso_last6month_user_sql);
 
 $last_user_10days_sql = db_query($mysql->conso_user_last_10days());
-$last_user_10days_num = mysqli_num_rows($last_10days_sql);
+$last_user_10days_num = mysqli_num_rows($last_user_10days_sql);
 if ($last_user_10days_num == "") { 
 	$last_user_10days_num = "0";
 }
