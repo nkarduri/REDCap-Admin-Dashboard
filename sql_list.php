@@ -37,7 +37,7 @@ class MySQL {
 	
 	// Total DB size
 	public function conso_db_size() {
-		return "SELECT db_size FROM (SELECT table_schema as 'db_name', SUM( data_length + index_length ) /1024 /1024 'db_size' FROM information_schema.TABLES GROUP BY table_schema) AS T WHERE db_name='redcap_5.9.17'";
+		return "SELECT db_size FROM (SELECT table_schema as 'db_name', SUM( data_length + index_length ) /1024 /1024 'db_size' FROM information_schema.TABLES GROUP BY table_schema) AS T WHERE db_name='rccfri_redcap'";
 	}
 	
 	// Number of production in consortium
