@@ -19,7 +19,7 @@ $conso_last6month_user_sql = db_query($mysql->conso_last6month_user());
 $conso_last6month_user = mysqli_num_rows($conso_last6month_user_sql);
 
 $last_user_10days_sql = db_query($mysql->conso_user_last_10days());
-$last_user_10days_num = mysqli_num_rows($last_user_10days_sql);
+$last_user_10days_num = mysqli_num_rows($last_10days_sql);
 if ($last_user_10days_num == "") { 
 	$last_user_10days_num = "0";
 }
@@ -36,6 +36,13 @@ if ($last_user_90days_num == "") {
 	$last_user_90days_num = "0";
 }
 
+$suspended_user_sql = db_query($mysql->suspended_users());
+$suspended_user_num = mysqli_num_rows($suspended_user_sql);
+
+if($suspended_user_num == "")
+ {
+   $suspended_user_num = "0";
+ } 
 // CRSU
 $crsu_total_user = $mysql->crsu_total_user();
 
@@ -182,6 +189,61 @@ $vec_total_user = $mysql->vec_total_user();
 							<td><a href="csv_download/user_active.php"><span class="glyphicon glyphicon-download-alt"></span> Download</a></td>
 							<!-- td><button id="btn-conso-dev" class="btn btn-success btn-xs" type="button"><span class="glyphicon glyphicon-download-alt"></span> Download</button></td -->
 						</tr>
+					<tr>	
+					 <td> Suspended User accounts <button id="btn_email_all1" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-send"></span> email all</button></td></td>	
+					 <td> <?php echo $suspended_user_num;  ?></td>
+					 <td>
+								<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#conso_active_user1">
+									<span class="glyphicon glyphicon-list"></span> View
+								</button>
+								<div id="conso_active_user1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+												<h4 class="modal-title" id="myModalLabel">List of Suspended users</h4>
+											</div>
+											<div class="modal-body filterable">
+												<table class="table table-striped table-hover">
+													<thead>
+														<tr class="filters">
+															<th><input id="active_username" type="text" class="form-control" placeholder="Username" /></th>
+															<th><input id="active_fname" type="text" class="form-control" placeholder="First Name" /></th>
+															<th><input id="active_lname" type="text" class="form-control" placeholder="Last Name" /></th>
+															<th><b>E-mail</b></td>
+														</tr>
+													</thead>
+													<tbody>
+														<?php
+														$email_all1 = "";
+														while ( $conso_suspended_user_result = db_fetch_array($suspended_user_sql) ) { 
+															$email_all1 .= $conso_suspended_user_result['user_email'].";";
+														?>
+														<tr>
+															<td><?php echo $conso_suspended_user_result['username']; ?></td>
+															<td><?php echo $conso_suspended_user_result['user_firstname']; ?></td>
+															<td><?php echo $conso_suspended_user_result['user_lastname']; ?></td>
+															<td><a href="mailto: <?php echo $conso_suspended_user_result['user_email']; ?>"><?php echo $conso_suspended_user_result['user_email']; ?></a></td>
+														</tr>
+														<?php
+														} ?>
+													</tbody>
+												</table>
+												
+											 </div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</td>
+								
+				    <td><a href="csv_download/user_suspended.php"><span class="glyphicon glyphicon-download-alt"></span> Download</a></td>
+						
+					</tr>	
 					</tbody>
 				</table>
 				
@@ -213,6 +275,7 @@ $vec_total_user = $mysql->vec_total_user();
 		</div>
 		
 		<input id="email_all" type="hidden" value="<?php echo $email_all; ?>" />
+		<input id="email_all1" type="hidden" value="<?php echo $email_all1; ?>" />
 		<button id="btn_select" class="btn btn-xs btn-warning" style="display:none">Select</button>
 		<button id="btn_close" class="btn btn-xs btn-default" style="display:none">Close</button>
 		<div id="load_email_all" style="display:none"></div>
@@ -476,6 +539,17 @@ $(document).ready(function() {
 		$("#load_email_all").html(email_list);
 	});
 	
+		$("#btn_email_all1").on("click", function() {
+		var email_list = $("#email_all1").val();
+		$("#load_email_all").show();
+		$("#btn_select").show();
+		$("#btn_close").show();
+		$("#load_email_all").html(email_list);
+	});
+	
+	
+	
+	
 	$("#btn_select").on("click", function() {
 		$("#load_email_all").focus();
 	});
@@ -485,6 +559,7 @@ $(document).ready(function() {
 		$("#btn_select").hide();
 		$("#btn_close").hide();
 	});
+	
 	
 });
 </script>

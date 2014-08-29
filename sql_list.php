@@ -126,6 +126,13 @@ class MySQL {
 	}
 	
 	
+	// Get list of Suspended users account in database
+	
+	public function suspended_users() {
+	
+	return "select username,user_firstname,user_lastname,user_email from redcap_user_information where user_suspended_time != 'NULL'";
+	}
+	
 	
 	/* Set CRSU */
 	
