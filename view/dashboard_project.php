@@ -111,6 +111,28 @@ $template = new Project_Dashboard_Template();
 									<td><?php echo $prod_info_result['project_pi_firstname']." ".$prod_info_result['project_pi_lastname']; ?></td>
 									<td><a href="mailto: <?php echo $prod_info_result['project_pi_email']; ?>"><?php echo $prod_info_result['project_pi_email']; ?></a></td>
 									<td><?php echo $prod_info_result['creation_time']; ?></td>
+									<td><?php 
+                            		// Number of Records - Production
+								    $sql = db_query("select distinct record from redcap_data where project_id = ". $prod_info_result['project_id'] );	
+									$result = mysqli_num_rows($sql);
+									echo $result;						
+									?> </td>
+									<td>
+									<?php
+									// Number of forms - production		
+									$sql = db_query("select distinct form_name from redcap_metadata where project_id = ". $prod_info_result['project_id'] );	
+									$result1 = mysqli_num_rows($sql);
+									echo $result1;
+									?>
+									</td>
+									<td>
+									<?php 
+									//Number of questions - production 
+								    $sql = db_query("select distinct field_name from redcap_metadata where project_id = ". $prod_info_result['project_id'] );	
+									$result2 = mysqli_num_rows($sql);
+									echo $result2;
+									?>
+									</td>
 								</tr>
 							<?php
 							} ?>
@@ -129,6 +151,30 @@ $template = new Project_Dashboard_Template();
 									<td><?php echo $dev_info_result['project_pi_firstname']." ".$dev_info_result['project_pi_lastname']; ?></td>
 									<td><a href="mailto: <?php echo $dev_info_result['project_pi_email']; ?>"><?php echo $dev_info_result['project_pi_email']; ?></a></td>
 									<td><?php echo $dev_info_result['creation_time']; ?></td>
+									
+									<td><?php 
+									// Number of Records - Developement
+									$sql = db_query("select distinct record from redcap_data where project_id = ". $dev_info_result['project_id'] );	
+									$result = mysqli_num_rows($sql);
+									echo $result;
+									?> </td>
+									<td>
+									 <?php
+									 // Number of forms - Development 
+									$sql = db_query("select distinct form_name from redcap_metadata where project_id = ". $dev_info_result['project_id'] );	
+									$result1 = mysqli_num_rows($sql);
+									echo $result1;
+						  		    ?>
+									</td>
+									<td>
+									<?php
+									//Number of Questions - development 
+									$sql = db_query("select distinct field_name from redcap_metadata where project_id = ". $dev_info_result['project_id'] );	
+									$result2 = mysqli_num_rows($sql);
+									echo $result2;
+								
+									?>
+									</td>
 								</tr>
 							<?php
 							} ?>
@@ -146,6 +192,35 @@ $template = new Project_Dashboard_Template();
 									<td><?php echo $inact_info_result['project_pi_firstname']." ".$inact_info_result['project_pi_lastname']; ?></td>
 									<td><a href="mailto: <?php echo $inact_info_result['project_pi_email']; ?>"><?php echo $inact_info_result['project_pi_email']; ?></a></td>
 									<td><?php echo $inact_info_result['creation_time']; ?></td>
+									
+								    <td><?php 
+                                    
+									// Number of Records - Inactive
+									
+									$sql = db_query("select distinct record from redcap_data where project_id = ".$inact_info_result['project_id'] );	
+									$result = mysqli_num_rows($sql);
+									echo $result;
+									
+									?> </td>
+									<td>
+									 <?php
+									 // Number of forms - Inactive 
+									$sql = db_query("select distinct form_name from redcap_metadata where project_id = ".$inact_info_result['project_id'] );	
+									$result1 = mysqli_num_rows($sql);
+									echo $result1;
+						  		    ?>
+									</td>
+									<td>
+									<?php
+									//Number of Questions - Inactive 
+									$sql = db_query("select distinct field_name from redcap_metadata where project_id = ".$inact_info_result['project_id'] );	
+									
+									$result2 = mysqli_num_rows($sql);
+									echo $result2;
+								
+									?>
+									</td>
+											
 								</tr>
 							<?php
 							} ?>
@@ -163,6 +238,37 @@ $template = new Project_Dashboard_Template();
 									<td><?php echo $arch_info_result['project_pi_firstname']." ".$arch_info_result['project_pi_lastname']; ?></td>
 									<td><a href="mailto: <?php echo $arch_info_result['project_pi_email']; ?>"><?php echo $arch_info_result['project_pi_email']; ?></a></td>
 									<td><?php echo $arch_info_result['creation_time']; ?></td>
+									
+								  <td><?php 
+                                    
+									// Number of Records - Archive
+									
+									$sql = db_query("select distinct record from redcap_data where project_id = ".$arch_info_result['project_id'] );	
+									$result = mysqli_num_rows($sql);
+							
+									echo $result;
+									
+									?> </td>	
+									
+								<td>
+									 <?php
+									 // Number of forms - Inactive 
+									$sql = db_query("select distinct form_name from redcap_metadata where project_id = ".$arch_info_result['project_id'] );	
+									$result1 = mysqli_num_rows($sql);
+									echo $result1;
+						  		    ?>
+									</td>
+									<td>
+									<?php
+									//Number of Questions - Inactive 
+									$sql = db_query("select distinct field_name from redcap_metadata where project_id = ".$arch_info_result['project_id'] );	
+									
+									$result2 = mysqli_num_rows($sql);
+									echo $result2;
+								
+									?>
+									</td>	
+			
 								</tr>
 							<?php
 							} ?>

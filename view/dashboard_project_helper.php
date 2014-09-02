@@ -27,6 +27,9 @@ class Project_Dashboard_Template {
 											<th><input id="'.$piname.'" type="text" class="form-control" placeholder="PI Name" /></th>
 											<th><b>PI Email</b></th>
 											<th><b>Creation Date</b></th>
+											<th><b>Records </b></th>
+											<th><b>Forms</b></th>
+											<th><b>Questions</b></th>
 										</tr>
 									</thead>
 		';
