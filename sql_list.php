@@ -37,47 +37,47 @@ class MySQL {
 	
 	// Total DB size
 	public function conso_db_size() {
-		return "SELECT db_size FROM (SELECT table_schema as 'db_name', SUM( data_length + index_length ) /1024 /1024 'db_size' FROM information_schema.TABLES GROUP BY table_schema) AS T WHERE db_name='rccfri_redcap'";
+		return "SELECT db_size FROM (SELECT table_schema as 'db_name', SUM( data_length + index_length ) /1024 /1024 'db_size' FROM information_schema.TABLES GROUP BY table_schema) AS T WHERE db_name='redcap_5.9.3'";
 	}
 	
 	// Number of production in consortium
 	public function conso_num_production() {
-		return "SELECT status FROM redcap_projects WHERE status='1' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%'";
+		return "SELECT status FROM redcap_projects WHERE status='1' AND purpose !=  'NULL' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%'";
 	}
 	
 	// Number of development in consortium
 	public function conso_num_development() {
-		return "SELECT status FROM redcap_projects WHERE status='0' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%'";	
+		return "SELECT status FROM redcap_projects WHERE status='0' AND purpose !=  'NULL' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%'";	
 	}
 	
 	// Number of inactive in consortium
 	public function conso_num_inactive() {
-		return "SELECT status FROM redcap_projects WHERE status='2' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%'";	
+		return "SELECT status FROM redcap_projects WHERE status='2' AND purpose !=  'NULL' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%'";	
 	}
 	
 	// Number of archive in consortium
 	public function conso_num_archive() {
-		return "SELECT status FROM redcap_projects WHERE status='3' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%'";	
+		return "SELECT status FROM redcap_projects WHERE status='3' AND purpose !=  'NULL' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%'";	
 	}
 	
 	// Get Production information
 	public function conso_prod_info() {
-		return "SELECT project_id, app_title, creation_time, project_pi_firstname, project_pi_lastname, project_pi_email FROM redcap_projects WHERE status='1' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%' ORDER BY creation_time DESC";
+		return "SELECT project_id, app_title, creation_time, project_pi_firstname, project_pi_lastname, project_pi_email FROM redcap_projects WHERE status='1' AND purpose !=  'NULL' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%' ORDER BY creation_time DESC";
 	}
 	
 	// Get Development information
 	public function conso_dev_info() {
-		return "SELECT project_id, app_title, creation_time, project_pi_firstname, project_pi_lastname, project_pi_email FROM redcap_projects WHERE status='0' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%' ORDER BY creation_time DESC";
+		return "SELECT project_id, app_title, creation_time, project_pi_firstname, project_pi_lastname, project_pi_email FROM redcap_projects WHERE status='0' AND purpose !=  'NULL' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%' ORDER BY creation_time DESC";
 	}
 	
 	// Get Inactive information
 	public function conso_inact_info() {
-		return "SELECT project_id, app_title, creation_time, project_pi_firstname, project_pi_lastname, project_pi_email FROM redcap_projects WHERE status='2' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%' ORDER BY creation_time DESC";
+		return "SELECT project_id, app_title, creation_time, project_pi_firstname, project_pi_lastname, project_pi_email FROM redcap_projects WHERE status='2' AND purpose !=  'NULL' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%' ORDER BY creation_time DESC";
 	}
 	
 	// Get Archive information
 	public function conso_arch_info() {
-		return "SELECT project_id, app_title, creation_time, project_pi_firstname, project_pi_lastname, project_pi_email FROM redcap_projects WHERE status='3' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%' ORDER BY creation_time DESC";
+		return "SELECT project_id, app_title, creation_time, project_pi_firstname, project_pi_lastname, project_pi_email FROM redcap_projects WHERE status='3' AND purpose !=  'NULL' AND app_title NOT LIKE '%test%' AND app_title NOT LIKE '%copy%' AND app_title NOT LIKE '%example%' AND app_title NOT LIKE '%longitudinal%' ORDER BY creation_time DESC";
 	}
 	
 	// Get projects in last 10 days
@@ -125,14 +125,12 @@ class MySQL {
 		return "SELECT DATE_FORMAT(user_creation, '%Y-%m-%d') FROM redcap_user_information WHERE user_creation BETWEEN NOW() - INTERVAL 90 DAY AND NOW()";
 	}
 	
-	
 	// Get list of Suspended users account in database
 	
 	public function suspended_users() {
 	
 	return "select username,user_firstname,user_lastname,user_email from redcap_user_information where user_suspended_time != 'NULL'";
 	}
-	
 	
 	/* Set CRSU */
 	
