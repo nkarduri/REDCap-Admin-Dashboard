@@ -107,9 +107,9 @@ $crsu_version = $mysql->crsu_version();
                     <li>
 						<a id="group_dashboard" href="#"><i class="glyphicon glyphicon-stats"></i> Group Dashboard</a>
 					</li>
-					 <li>
+					<!-- <li>
 						<a id="ticket_dashboard" href="#"><i class="glyphicon glyphicon-stats"></i> Ticket System</a>
-					</li>
+					</li> -->
                     <li class="nav-divider"></li>
                     <li>
 						<a id="logout" href="#"><i class="glyphicon glyphicon-log-out"></i> Log out</a>
