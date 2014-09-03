@@ -29,7 +29,7 @@ class Project_Dashboard_Template {
 											<th><b>Creation Date</b></th>
 											<th><b>Records </b></th>
 											<th><b>Forms</b></th>
-											<th><b>Questions</b></th>
+											<th><b>Fields</b></th>
 										</tr>
 									</thead>
 		';
