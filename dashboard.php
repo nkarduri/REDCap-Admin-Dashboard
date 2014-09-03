@@ -107,6 +107,9 @@ $crsu_version = $mysql->crsu_version();
                     <li>
 						<a id="group_dashboard" href="#"><i class="glyphicon glyphicon-stats"></i> Group Dashboard</a>
 					</li>
+					 <li>
+						<a id="ticket_dashboard" href="#"><i class="glyphicon glyphicon-stats"></i> Ticket System</a>
+					</li>
                     <li class="nav-divider"></li>
                     <li>
 						<a id="logout" href="#"><i class="glyphicon glyphicon-log-out"></i> Log out</a>
@@ -221,6 +224,8 @@ $crsu_version = $mysql->crsu_version();
 			<div id="project_dashboard_load" style="display: none;"></div>
 			<div id="user_dashboard_load" style="display: none;"></div>
 			<div id="group_dashboard_load" style="display: none;"></div>
+			<div id="ticket_dashboard_load" style="display: none;"></div>
+			
         </div>
 		
     </div>
@@ -240,6 +245,7 @@ $(document).ready(function() {
 		$("#project_dashboard_load").hide();
 		$("#user_dashboard_load").hide();
 		$("#group_dashboard_load").hide();
+		$("ticket_dashboard_load").hide();
 		$("#home_load").show();
 	});
 	
@@ -248,6 +254,7 @@ $(document).ready(function() {
 		$("#project_dashboard_load").hide();
 		$("#user_dashboard_load").hide();
 		$("#group_dashboard_load").hide();
+		$("ticket_dashboard_load").hide();
 		$("#profile_load").show();
 		$("#profile_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...</span>');
 		$("#profile_load").load("view/dashboard_profile.php?username=" + userid);
@@ -258,6 +265,7 @@ $(document).ready(function() {
 		$("#profile_load").hide();
 		$("#user_dashboard_load").hide();
 		$("#group_dashboard_load").hide();
+		$("ticket_dashboard_load").hide();
 		$("#project_dashboard_load").show();
 		$("#project_dashboard_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...</span>');
 		$("#project_dashboard_load").load("view/dashboard_project.php?username=" + userid);
@@ -268,19 +276,32 @@ $(document).ready(function() {
 		$("#profile_load").hide();
 		$("#project_dashboard_load").hide();
 		$("#group_dashboard_load").hide();
+		$("ticket_dashboard_load").hide();
 		$("#user_dashboard_load").show();
 		$("#user_dashboard_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...</span>');
 		$("#user_dashboard_load").load("view/dashboard_user.php?username=" + userid);
 	});
 	
-	$("#group_dashboard").click(function() {
+		$("#group_dashboard").click(function() {
 		$("#home_load").hide();
 		$("#profile_load").hide();
 		$("#project_dashboard_load").hide();
 		$("#user_dashboard_load").hide();
+		$("ticket_dashboard_load").hide();
 		$("#group_dashboard_load").show();
 		$("#group_dashboard_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...</span>');
 		$("#group_dashboard_load").load("view/dashboard_group.php?username=" + userid);
+	});
+	
+		$("#ticket_dashboard").click(function() {
+		$("#home_load").hide();
+		$("#profile_load").hide();
+		$("#project_dashboard_load").hide();
+		$("#user_dashboard_load").hide();
+		$("#group_dashboard_load").hide();
+		$("#ticket_dashboard_load").show();
+		$("#ticket_dashboard_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...</span>');
+		$("#ticket_dashboard_load").load("view/ticket_system.php?username="+ userid);
 	});
 	
 	$("#logout").click(function() {
