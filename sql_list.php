@@ -136,7 +136,7 @@ class MySQL {
 	
 	// Number of Production
 	public function crsu_num_production() {
-		return "355";
+		return "351";
 	}
 	
 	// Number of Development
