@@ -256,7 +256,7 @@ $(document).ready(function() {
 		$("#group_dashboard_load").hide();
 		$("ticket_dashboard_load").hide();
 		$("#profile_load").show();
-		$("#profile_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...</span>');
+		$("#profile_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...Please wait</span>');
 		$("#profile_load").load("view/dashboard_profile.php?username=" + userid);
 	});
 	
@@ -267,7 +267,7 @@ $(document).ready(function() {
 		$("#group_dashboard_load").hide();
 		$("ticket_dashboard_load").hide();
 		$("#project_dashboard_load").show();
-		$("#project_dashboard_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...</span>');
+		$("#project_dashboard_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...Please wait</span>');
 		$("#project_dashboard_load").load("view/dashboard_project.php?username=" + userid);
 	});
 	
@@ -278,7 +278,7 @@ $(document).ready(function() {
 		$("#group_dashboard_load").hide();
 		$("ticket_dashboard_load").hide();
 		$("#user_dashboard_load").show();
-		$("#user_dashboard_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...</span>');
+		$("#user_dashboard_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...Please wait</span>');
 		$("#user_dashboard_load").load("view/dashboard_user.php?username=" + userid);
 	});
 	
@@ -289,7 +289,7 @@ $(document).ready(function() {
 		$("#user_dashboard_load").hide();
 		$("ticket_dashboard_load").hide();
 		$("#group_dashboard_load").show();
-		$("#group_dashboard_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...</span>');
+		$("#group_dashboard_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...Please wait</span>');
 		$("#group_dashboard_load").load("view/dashboard_group.php?username=" + userid);
 	});
 	
@@ -300,7 +300,7 @@ $(document).ready(function() {
 		$("#user_dashboard_load").hide();
 		$("#group_dashboard_load").hide();
 		$("#ticket_dashboard_load").show();
-		$("#ticket_dashboard_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...</span>');
+		$("#ticket_dashboard_load").html('<img src="img/loading.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...Please wait</span>');
 		$("#ticket_dashboard_load").load("view/ticket_system.php?username="+ userid);
 	});
 	
@@ -310,7 +310,7 @@ $(document).ready(function() {
 	
 	$("#db_size").click(function() {
 		$("#db_size_load_empty").hide();
-		$("#db_size_load").html('<img src="img/loading_sm.gif" style="margin-left: 30px;" /> <span style="color: #777"> Estmating...</span>');
+		$("#db_size_load").html('<img src="img/loading_sm.gif" style="margin-left: 30px;" /> <span style="color: #777"> Loading...Please wait</span>');
 		$("#db_size_load").load("view_size_db.php?username=" + userid);
 	});
 	
