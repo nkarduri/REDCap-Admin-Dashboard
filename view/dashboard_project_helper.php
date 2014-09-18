@@ -30,6 +30,7 @@ class Project_Dashboard_Template {
 											<th><b>Records </b></th>
 											<th><b>Forms</b></th>
 											<th><b>Fields</b></th>
+											<th><b>production Date</b></th>
 										</tr>
 									</thead>
 		';

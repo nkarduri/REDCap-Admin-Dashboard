@@ -133,6 +133,18 @@ $template = new Project_Dashboard_Template();
 									echo $result2;
 									?>
 									</td>
+									<td>
+									<?php
+									//Project production date 		
+								    $sql = db_query("select production_time from redcap_projects where project_id =". $prod_info_result['project_id']);
+								
+									while($row = mysqli_fetch_array($sql))
+									{
+									echo $row['production_time'];
+									}
+									?>
+									</td>
+		
 								</tr>
 							<?php
 							} ?>
@@ -174,6 +186,9 @@ $template = new Project_Dashboard_Template();
 									echo $result2;
 								
 									?>
+									</td>
+									<td>
+									<?php echo '--'; ?>
 									</td>
 								</tr>
 							<?php
@@ -220,7 +235,17 @@ $template = new Project_Dashboard_Template();
 								
 									?>
 									</td>
-											
+									<td>
+									<?php
+									//Project production date 		
+								    $sql = db_query("select production_time from redcap_projects where project_id =". $inact_info_result['project_id']);
+								
+									while($row = mysqli_fetch_array($sql))
+									{
+									echo $row['production_time'];
+									}
+									?>
+									</td>	
 								</tr>
 							<?php
 							} ?>
@@ -268,7 +293,17 @@ $template = new Project_Dashboard_Template();
 								
 									?>
 									</td>	
-			
+									<td>
+									<?php
+									//Project production date 		
+								    $sql = db_query("select production_time from redcap_projects where project_id =". $arch_info_result['project_id'] );
+								
+									while($row1 = mysqli_fetch_array($sql))
+									{
+									echo $row1['production_time'];
+									}
+									?>
+									</td>	
 								</tr>
 							<?php
 							} ?>
