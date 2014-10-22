@@ -7,7 +7,7 @@ $userid = $_SESSION['username'];
 $user_info = db_query("SELECT username FROM redcap_user_information WHERE username='".$userid."' AND super_user='1'");
 $user_info_num = mysqli_num_rows($user_info);	
 
-$user = array('cfriadmin','admin_dm','amckerrow_sa','nkarduri','eportales','nkarduri_test','Eportales');
+$user = array('cfriadmin','admin_dm','amckerrow_sa','nkarduri','eportales','nkarduri_test','Eportales','mstonefield');
 
 if(in_array($userid,$user))
 {
