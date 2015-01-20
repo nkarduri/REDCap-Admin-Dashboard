@@ -114,9 +114,9 @@ $template = new Project_Dashboard_Template();
 									<td><?php 
                             		// Number of Records - Production
 								    
-                                    if($prod_info_result['project_id'] != '' && $prod_info_result['project_id'] != NULL)
+                                    if(isset($prod_info_result['project_id']))
                                     {
-                                    $sql = db_query("select distinct record from redcap_data where project_id = ". $prod_info_result['project_id'] );	
+                                    $sql = db_query("select distinct record from redcap_data where project_id =". $prod_info_result['project_id'] );	
 									$result = mysqli_num_rows($sql);
 									echo $result;						
 									}
