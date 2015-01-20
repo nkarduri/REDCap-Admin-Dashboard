@@ -113,10 +113,14 @@ $template = new Project_Dashboard_Template();
 									<td><?php echo $prod_info_result['creation_time']; ?></td>
 									<td><?php 
                             		// Number of Records - Production
-								    $sql = db_query("select distinct record from redcap_data where project_id = ". $prod_info_result['project_id'] );	
+								    
+                                    if($prod_info_result['project_id'] != '' && $prod_info_result['project_id'] != NULL)
+                                    {
+                                    $sql = db_query("select distinct record from redcap_data where project_id = ". $prod_info_result['project_id'] );	
 									$result = mysqli_num_rows($sql);
 									echo $result;						
-									?> </td>
+									}
+                                    ?> </td>
 									<td>
 									<?php
 									// Number of forms - production		
