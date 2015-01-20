@@ -31,8 +31,10 @@ $conso_total_user = mysqli_num_rows($conso_total_user_sql);
 $conso_total_centre_sql = db_query($mysql->conso_total_centre());
 $conso_total_centre = db_fetch_assoc($conso_total_centre_sql);
 
+/*
 $conso_total_record_sql = db_query($mysql->conso_total_record());
 $conso_total_record = db_fetch_assoc($conso_total_record_sql);
+*/
 
 $conso_version_sql = db_query($mysql->conso_redcap_version());
 $conso_version_result = db_fetch_assoc($conso_version_sql);
@@ -171,12 +173,16 @@ $crsu_version = $mysql->crsu_version();
 									<td><?php echo $crsu_total_centre; ?></td>
 									<td><?php echo (int) $conso_total_centre['total_count'] + (int) $crsu_total_centre; ?></td>
 								</tr>
+                               
+                                <!--
 								<tr>
 									<td>Number of records</td>
-									<td><?php echo $conso_total_record['total_count']; ?></td>
-									<td><?php echo $crsu_total_record; ?></td>
-									<td><?php echo (int) $conso_total_record['total_count'] + (int) $crsu_total_record; ?></td>
+									<td><?php //echo $conso_total_record['total_count']; ?></td>
+									<td><?php //echo $crsu_total_record; ?></td>
+									<td><?php //echo (int) $conso_total_record['total_count'] + (int) $crsu_total_record; ?></td>
 								</tr>
+                                -->
+                                
 							</tbody>
 							<tbody id="db_size_load"></tbody>
 							<tbody id="db_size_load_empty">

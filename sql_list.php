@@ -30,10 +30,12 @@ class MySQL {
 		return "SELECT count(*) as total_count FROM redcap_data_access_groups";
 	}
 	
+    /*
 	// Total record
 	public function conso_total_record() {
 		return "SELECT count(*) as total_count FROM redcap_data WHERE field_name='study_id'";
-	}
+	} */
+    
 	
 	// Total DB size
 	public function conso_db_size() {

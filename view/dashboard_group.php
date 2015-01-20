@@ -12,31 +12,31 @@ $mysql = new MySQL();
 $conso_total_centre_sql = db_query($mysql->conso_total_centre());
 $conso_total_centre = db_fetch_assoc($conso_total_centre_sql);
 
-$conso_total_record_sql = db_query($mysql->conso_total_record());
-$conso_total_record = db_fetch_assoc($conso_total_record_sql);
+//$conso_total_record_sql = db_query($mysql->conso_total_record());
+//$conso_total_record = db_fetch_assoc($conso_total_record_sql);
 
 // CRSU
 $crsu_total_centre = $mysql->crsu_total_centre();
-$crsu_total_record = $mysql->crsu_total_record();
+//$crsu_total_record = $mysql->crsu_total_record();
 
 // IHDI
 $ihdi_total_centre = $mysql->ihdi_total_centre();
-$ihdi_total_record = $mysql->ihdi_total_record();
+//$ihdi_total_record = $mysql->ihdi_total_record();
 
 // CTU
 $ctu_total_centre = $mysql->ctu_total_centre();
-$ctu_total_record = $mysql->ctu_total_record();
+//$ctu_total_record = $mysql->ctu_total_record();
 
 // VEC
 $vec_total_centre = $mysql->vec_total_centre();
-$vec_total_record = $mysql->vec_total_record();
+//$vec_total_record = $mysql->vec_total_record();
 
 ?>
 <h3>Group Dashboard</h3>
 <br>
 <div class="panel panel-success">
 	<div class="panel-heading">
-		<h3 class="panel-title">Centres and Records</h3>
+		<h3 class="panel-title">Centres</h3>
 	</div>
 	<div class="panel-body">
 		<table class="table table-striped table-hover">
@@ -59,14 +59,16 @@ $vec_total_record = $mysql->vec_total_record();
 					<td><?php echo $ctu_total_centre; ?></td>
 					<td><?php echo $vec_total_centre; ?></td>
 				</tr>
-				<tr>
+				
+                 <!--
+                <tr>
 					<td>Number of records</td>
-					<td><?php echo $conso_total_record['total_count']; ?></td>
-					<td><?php echo $crsu_total_record; ?></td>
-					<td><?php echo $ihdi_total_record; ?></td>
-					<td><?php echo $ctu_total_record; ?></td>
-					<td><?php echo $vec_total_record; ?></td>
-				</tr>
+					<td><?php /*echo $conso_total_record['total_count'];*/ ?></td>
+					<td><?php /* echo $crsu_total_record; */ ?></td>
+					<td><?php /* echo $ihdi_total_record; */?></td>
+					<td><?php /* echo $ctu_total_record; */ ?></td>
+					<td><?php /* echo $vec_total_record; */ ?></td>
+				</tr> -->
 			</tbody>
 		</table>
 	</div>
@@ -139,6 +141,7 @@ $vec_total_record = $mysql->vec_total_record();
 				</script>
 				<div id="num-centre"></div>
 				
+               <!-- 
 				<script type="text/javascript">
 				$(function () {
 					$('#num-record').highcharts({
@@ -176,28 +179,28 @@ $vec_total_record = $mysql->vec_total_record();
 						},
 						series: [{
 							name: 'CFRI Consortium',
-							data: [<?php echo $conso_total_record['total_count']; ?>],
+							data: [<?php //echo $conso_total_record['total_count']; ?>],
 							color: '#428bca'				
 						}, {
 							name: 'CRSU',
-							data: [<?php echo $crsu_total_record; ?>],
+							data: [<?php //echo $crsu_total_record; ?>],
 							color: '#5cb85c'
 						}, {
 							name: 'IHDI',
-							data: [<?php echo $ihdi_total_record; ?>],
+							data: [<?php //echo $ihdi_total_record; ?>],
 							color: '#f0ad4e'
 						}, {
 							name: 'CTU',
-							data: [<?php echo $ctu_total_record; ?>],
+							data: [<?php //echo $ctu_total_record; ?>],
 							color: '#d9534f'
 						}, {
 							name: 'VEC',
-							data: [<?php echo $vec_total_record; ?>],
+							data: [<?php //echo $vec_total_record; ?>],
 							color: '#777'
 						}]
 					});
 				});
-				</script>
-				<div id="num-record"></div>
+				</script>    
+				<div id="num-record"></div> -->
 			</div>
 		</div>
