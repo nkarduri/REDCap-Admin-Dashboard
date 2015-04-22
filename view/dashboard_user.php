@@ -295,7 +295,8 @@ $vec_total_user = $mysql->vec_total_user();
                                                             <td><a href="mailto: <?php echo $api_user_result['user_email']; ?>"><?php echo $api_user_result['user_email']; ?></a></td>
                                                         </tr>
                                                         
-                    
+                                                            <?php
+                                                        } ?>
                 
 					</tbody>
 				</table>
