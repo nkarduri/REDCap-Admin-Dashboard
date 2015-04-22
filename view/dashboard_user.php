@@ -39,6 +39,13 @@ if ($last_user_90days_num == "") {
 $suspended_user_sql = db_query($mysql->suspended_users());
 $suspended_user_num = mysqli_num_rows($suspended_user_sql);
 
+//API user accounts
+
+$api_user_sql = db_query($mysql->api_users());
+$api_user_sql_num = mysqli_num_rows($api_user_sql);
+
+
+
 if($suspended_user_num == "")
  {
    $suspended_user_num = "0";
@@ -243,7 +250,53 @@ $vec_total_user = $mysql->vec_total_user();
 								
 				    <td><a href="csv_download/user_suspended.php"><span class="glyphicon glyphicon-download-alt"></span> Download</a></td>
 						
-					</tr>	
+					</tr>
+                    
+                       <!-- API token section   -->
+                    <tr>    
+                     <td> API token <button id="btn_email_all_api" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-send"></span> email all</button></td></td>    
+                     <td> <?php echo $api_user_sql_num;  ?></td>
+                     <td>
+                                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#conso_api_user">
+                                    <span class="glyphicon glyphicon-list"></span> View 
+                                </button>
+                                <div id="conso_api_user" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">List of API users</h4>
+                                            </div>
+                                            <div class="modal-body filterable">
+                                                <table class="table table-striped table-hover">
+                                                    <thead>
+                                                        <tr class="filters">
+                                                            <th><input id="active_username" type="text" class="form-control" placeholder=" Project ID" /></th>
+                                                            <th><input id="active_username" type="text" class="form-control" placeholder="username" /></th>
+                                                            <th><input id="active_fname" type="text" class="form-control" placeholder="First Name" /></th>
+                                                            <th><input id="active_lname" type="text" class="form-control" placeholder="Last Name" /></th>
+                                                            <th><b>E-mail</b></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        
+                                                        $email_all2 = "";
+                                                        while ( $api_user_result = db_fetch_array($api_user_sql) ) { 
+                                                            $email_all2 .= $api_user_result['user_email'].";";
+                                                              
+                                                        ?>
+                                                        <tr>
+                                                            <td><?php echo $api_user_result['project_id']; ?></td>
+                                                             <td><?php echo $api_user_result['username']; ?></td>
+                                                            <td><?php echo $api_user_result['user_firstname']; ?></td>
+                                                            <td><?php echo $api_user_result['user_lastname']; ?></td>
+                                                            <td><a href="mailto: <?php echo $api_user_result['user_email']; ?>"><?php echo $api_user_result['user_email']; ?></a></td>
+                                                        </tr>
+                                                        
+                    
+                
 					</tbody>
 				</table>
 				
@@ -276,6 +329,7 @@ $vec_total_user = $mysql->vec_total_user();
 		
 		<input id="email_all" type="hidden" value="<?php echo $email_all; ?>" />
 		<input id="email_all1" type="hidden" value="<?php echo $email_all1; ?>" />
+        <input id="email_all2" type="hidden" value="<?php echo $email_all2; ?>" />
 		<button id="btn_select" class="btn btn-xs btn-warning" style="display:none">Select</button>
 		<button id="btn_close" class="btn btn-xs btn-default" style="display:none">Close</button>
 		<div id="load_email_all" style="display:none"></div>
@@ -547,7 +601,15 @@ $(document).ready(function() {
 		$("#load_email_all").html(email_list);
 	});
 	
-	
+	   $("#btn_email_all_api").on("click", function() {
+        var email_list = $("#email_all2").val();
+        $("#load_email_all").show();
+        $("#btn_select").show();
+        $("#btn_close").show();
+        $("#load_email_all").html(email_list);
+    });
+    
+    
 	
 	
 	$("#btn_select").on("click", function() {

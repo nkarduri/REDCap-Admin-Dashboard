@@ -134,6 +134,19 @@ class MySQL {
 	return "select username,user_firstname,user_lastname,user_email from redcap_user_information where user_suspended_time != 'NULL'";
 	}
 	
+     // Get list of API users account in database
+    
+    public function api_users()
+    {
+     return  
+     "SELECT userrights.project_id, userinfo.username,userinfo.user_firstname, userinfo.user_lastname, userinfo.user_email
+     FROM redcap_user_information userinfo
+     INNER JOIN redcap_user_rights userrights ON userinfo.username = userrights.username
+     AND userrights.api_token !=  'NULL'";  
+    }
+    
+    
+    
 	/* Set CRSU */
 	
 	// Number of Production
