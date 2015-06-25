@@ -151,22 +151,22 @@ class MySQL {
 	
 	// Number of Production
 	public function crsu_num_production() {
-		return "351";
+		return "294";
 	}
 	
 	// Number of Development
 	public function crsu_num_development() {
-		return "139";
+		return "96";
 	}
 	
 	// Number of Inactive
 	public function crsu_num_inactive() {
-		return "4";
+		return "6";
 	}
 	
 	// Number of Archive
 	public function crsu_num_archive() {
-		return "57";
+		return "149";
 	}
 	
 	// Total users
