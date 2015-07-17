@@ -104,7 +104,7 @@ class MySQL {
 	
 	// Get users in last 6 months
 	public function conso_last6month_user() {
-		return "SELECT username, user_firstname, user_lastname, user_email, DATE_FORMAT(user_lastlogin, '%Y-%m-%d') FROM redcap_user_information WHERE user_lastlogin BETWEEN NOW() - INTERVAL 6 MONTH AND NOW()";
+		return "SELECT username, user_firstname, user_lastname, user_email, DATE_FORMAT(user_lastlogin, '%Y-%m-%d') FROM redcap_user_information WHERE user_lastlogin BETWEEN NOW() - INTERVAL 6 MONTH AND NOW() and username NOT IN (select username from redcap_user_information where user_comments = 'unsubscribe')";
 	}
 
 	// Redcap Version
