@@ -151,27 +151,27 @@ class MySQL {
 	
 	// Number of Production
 	public function crsu_num_production() {
-		return "294";
+		return "27";
 	}
 	
 	// Number of Development
 	public function crsu_num_development() {
-		return "96";
+		return "2";
 	}
 	
 	// Number of Inactive
 	public function crsu_num_inactive() {
-		return "6";
+		return "0";
 	}
 	
 	// Number of Archive
 	public function crsu_num_archive() {
-		return "149";
+		return "505";
 	}
 	
 	// Total users
 	public function crsu_total_user() {
-		return "731";
+		return "795";
 	}
 	
 	// Total centre
