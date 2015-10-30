@@ -99,7 +99,7 @@ $vec_arch_num = $mysql->vec_num_archive();
 					</thead>
 					<tbody>
 						<tr>
-							<td>Production</td>
+							<td><h4>Production</h4></td>
 							<td><?php echo $production_num; ?></td>
 							<td>
 								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#production">
@@ -153,7 +153,7 @@ $vec_arch_num = $mysql->vec_num_archive();
 							<!-- td><button id="btn-conso-prod" class="btn btn-success btn-xs" type="button"><span class="glyphicon glyphicon-download-alt"></span> Download</button></td -->
 						</tr>
 						<tr>
-							<td>Development</td>
+							<td><h4>Development</h4></td>
 							<td><?php echo $development_num; ?></td>
 							<td>
 								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#development">
@@ -205,7 +205,7 @@ $vec_arch_num = $mysql->vec_num_archive();
 							<!-- td><button id="btn-conso-dev" class="btn btn-success btn-xs" type="button"><span class="glyphicon glyphicon-download-alt"></span> Download</button></td -->
 						</tr>
 						<tr>
-							<td>Inactive</td>
+							<td><h4>Inactive</h4></td>
 							<td><?php echo $inactive_num; ?></td>
 							<td>
 								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#inactive">
@@ -257,7 +257,7 @@ $vec_arch_num = $mysql->vec_num_archive();
 							<!-- td><button id="btn-conso-inact" class="btn btn-success btn-xs" type="button"><span class="glyphicon glyphicon-download-alt"></span> Download</button></td -->
 						</tr>
 						<tr>
-							<td>Archive</td>
+							<td><h4>Archive</h4></td>
 							<td><?php echo $archive_num; ?></td>
 							<td>					
 								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#archive">
