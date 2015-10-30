@@ -145,7 +145,17 @@ class MySQL {
      AND userrights.api_token !=  'NULL' ORDER BY userrights.project_id DESC";  
     }
     
+      //Get list of OFFLINE users accounts in Database 
     
+      public function app_users()
+    {
+     return  
+     "SELECT userrights.project_id, userinfo.username,userinfo.user_firstname, userinfo.user_lastname, userinfo.user_email
+     FROM redcap_user_information userinfo
+     INNER JOIN redcap_user_rights userrights ON userinfo.username = userrights.username
+     AND userrights.api_token !=  'NULL' AND userrights.mobile_app = '1' ORDER BY userrights.project_id DESC";  
+    } 
+      
     
 	/* Set CRSU */
 	

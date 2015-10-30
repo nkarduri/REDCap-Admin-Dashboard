@@ -44,6 +44,15 @@ $suspended_user_num = mysqli_num_rows($suspended_user_sql);
 $api_user_sql = db_query($mysql->api_users());
 $api_user_sql_num = mysqli_num_rows($api_user_sql);
 
+
+
+//APP(OFFLINE) user accounts
+
+$app_user_sql     = db_query($mysql->app_users());
+$app_user_sql_num  = mysqli_num_rows($app_user_sql);  
+
+
+
 if($suspended_user_num == "")
  {
    $suspended_user_num = "0";
@@ -311,7 +320,67 @@ $vec_total_user = $mysql->vec_total_user();
                       
                     </tr>    
                     
-          
+                     <tr>    
+                     <td><div style="font-weight:bold;color:#fff;border:1px solid #ccc;border-bottom:0;background-color:#555;padding:8px 10px;font-size:13px;">APP(OFFLINE) User accounts
+                      
+                     <button id="btn_email_all_app" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-send"></span> email all</button></div></td>  
+                     <td> <?php echo $app_user_sql_num;  ?></td>
+                     <td>
+                                <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#conso_app_user">
+                                    <span class="glyphicon glyphicon-list"></span> View 
+                                </button>
+                                <div id="conso_app_user" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel">List of APP(OFFLINE) users</h4>
+                                            </div>
+                                            <div class="modal-body filterable">
+                                                <table class="table table-striped table-hover">
+                                                    <thead>
+                                                        <tr class="filters">
+                                                            <th><input id="active_username" type="text" class="form-control" placeholder=" Project ID" /></th>
+                                                            <th><input id="active_username" type="text" class="form-control" placeholder="username" /></th>
+                                                            <th><input id="active_fname" type="text" class="form-control" placeholder="First Name" /></th>
+                                                            <th><input id="active_lname" type="text" class="form-control" placeholder="Last Name" /></th>
+                                                            <th><b>E-mail</b></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        
+                                                        $email_all3 = "";
+                                                        while ( $app_user_result = db_fetch_array($app_user_sql) ) { 
+                                                            $email_all3 .= $app_user_result['user_email'].";";
+                                                              
+                                                        ?>
+                                                        <tr>
+                                                            <td><?php echo $app_user_result['project_id']; ?></td>
+                                                             <td><?php echo $app_user_result['username']; ?></td>
+                                                            <td><?php echo $app_user_result['user_firstname']; ?></td>
+                                                            <td><?php echo $app_user_result['user_lastname']; ?></td>
+                                                            <td><a href="mailto: <?php echo $app_user_result['user_email']; ?>"><?php echo $app_user_result['user_email']; ?></a></td>
+                                                        </tr>
+                                                        
+                                                        <?php
+                                                        } ?>
+                                                    </tbody>
+                                                </table>
+                                                
+                                             </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                                           
+                    </tr>    
+                    
                     </tbody>
                 </table>
                 
@@ -345,6 +414,10 @@ $vec_total_user = $mysql->vec_total_user();
         <input id="email_all" type="hidden" value="<?php echo $email_all; ?>" />
         <input id="email_all1" type="hidden" value="<?php echo $email_all1; ?>" />
         <input id="email_all2" type="hidden" value="<?php echo $email_all2; ?>" />
+        <input id="email_all3" type="hidden" value="<?php echo $email_all3; ?>" />
+        
+        
+           
         <button id="btn_select" class="btn btn-xs btn-warning" style="display:none">Select</button>
         <button id="btn_close" class="btn btn-xs btn-default" style="display:none">Close</button>
         <div id="load_email_all" style="display:none"></div>
@@ -625,7 +698,14 @@ $(document).ready(function() {
         $("#load_email_all").html(email_list);
     });
     
-    
+        $("#btn_email_all_app").on("click", function() {
+        var email_list = $("#email_all3").val();
+        $("#load_email_all").show();
+        $("#btn_select").show();
+        $("#btn_close").show();
+        $("#load_email_all").html(email_list);
+    });
+     
     
     
     
