@@ -252,7 +252,7 @@ $vec_total_user = $mysql->vec_total_user();
                     
                      <!-- API token section   -->
                     <tr>    
-                     <td><font color='blue'><h2>API User accounts</h2></font><button id="btn_email_all_api" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-send"></span> email all</button></td></td>    
+                     <td><h3>API User accounts</h3><button id="btn_email_all_api" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-send"></span> email all</button></td></td>    
                      <td> <?php echo $api_user_sql_num;  ?></td>
                      <td>
                                 <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#conso_api_user">
