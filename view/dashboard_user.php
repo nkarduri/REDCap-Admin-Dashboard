@@ -90,7 +90,7 @@ $vec_total_user = $mysql->vec_total_user();
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Total</td>
+                            <td><h4>Total</h4></td>
                             <td><?php echo $conso_total_user; ?></td>
                             <td>
                                 <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#conso_total_user">
@@ -141,7 +141,7 @@ $vec_total_user = $mysql->vec_total_user();
                             <!-- td><button id="btn-conso-prod" class="btn btn-success btn-xs" type="button"><span class="glyphicon glyphicon-download-alt"></span> Download</button></td -->
                         </tr>
                         <tr>
-                            <td>Active (last 6 months) <button id="btn_email_all" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-send"></span> email all</button></td>
+                            <td><h4>Active (last 6 months)</h4><button id="btn_email_all" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-send"></span> email all</button></td>
                             <td><?php echo $conso_last6month_user; ?></td>
                             <td>
                                 <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#conso_active_user">
@@ -195,7 +195,7 @@ $vec_total_user = $mysql->vec_total_user();
                             <!-- td><button id="btn-conso-dev" class="btn btn-success btn-xs" type="button"><span class="glyphicon glyphicon-download-alt"></span> Download</button></td -->
                         </tr>
                     <tr>    
-                     <td> Suspended User accounts <button id="btn_email_all1" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-send"></span> email all</button></td></td>    
+                     <td><h4>Suspended User accounts</h4><button id="btn_email_all1" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-send"></span> email all</button></td></td>    
                      <td> <?php echo $suspended_user_num;  ?></td>
                      <td>
                                 <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#conso_active_user1">
@@ -252,7 +252,7 @@ $vec_total_user = $mysql->vec_total_user();
                     
                      <!-- API token section   -->
                     <tr>    
-                     <td><h3>API User accounts</h3>&nbsp;<button id="btn_email_all_api" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-send"></span> email all</button></td></td>    
+                     <td><h4>API User accounts</h4>&nbsp;<button id="btn_email_all_api" class="btn btn-xs btn-warning"><span class="glyphicon glyphicon-send"></span> email all</button></td></td>    
                      <td> <?php echo $api_user_sql_num;  ?></td>
                      <td>
                                 <button class="btn btn-success btn-xs" data-toggle="modal" data-target="#conso_api_user">
