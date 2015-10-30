@@ -99,7 +99,7 @@ $vec_arch_num = $mysql->vec_num_archive();
 					</thead>
 					<tbody>
 						<tr>
-							<td><h4>Production</h4></td>
+							<td><h4>Production</h4> </td>
 							<td><?php echo $production_num; ?></td>
 							<td>
 								<button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#production">
