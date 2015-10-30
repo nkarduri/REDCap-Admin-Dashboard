@@ -5,7 +5,7 @@ class Project_Dashboard_Template {
 	public function dashboard_template_body($title, $num, $pid, $pname, $piname) {
 		echo '
 			<tr>
-				<td>'.$title.'</td>
+				<td><h4>'.$title.'</h4></td>
 				<td>'.$num.'</td>
 				<td>
 				<button class="btn btn-success btn-xs" data-toggle="modal" data-target="#'.$title.'">
