@@ -663,19 +663,19 @@ $template = new Project_Dashboard_Template();
 					</thead>
 					<tbody>
 						<tr>
-							<td>Production</td>
+							<td><h4>Production</h4></td>
 							<td><?php echo $ctu_prod_num; ?></td>
 						</tr>
 						<tr>
-							<td>Development</td>
+							<td><h4>Development</h4></td>
 							<td><?php echo $ctu_dev_num; ?></td>
 						</tr>
 						<tr>
-							<td>Inactive</td>
+							<td><h4>Inactive</h4></td>
 							<td><?php echo $ctu_inact_num; ?></td>
 						</tr>
 						<tr>
-							<td>Archive</td>
+							<td><h4>Archive</h4></td>
 							<td><?php echo $ctu_arch_num; ?></td>
 						</tr>
 					</tbody>
