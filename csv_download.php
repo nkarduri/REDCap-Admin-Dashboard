@@ -45,9 +45,9 @@ header("Content-disposition: attachment;filename=$filename");
 
 //$csv_file = fopen('php://output', 'w');
 $csv_file = fopen($filename, 'w');
-fputcsv($csv_file, array("Project ID", "Project Name", "PI Name", "PI Email", "Creation Date"));
+fputcsv($csv_file, array("Project ID", "Project Name", "PI Name", "PI Email", "Creation Date","production Date","Last Activity Date"));
 while ( $result = db_fetch_array($sql) ) { 
-	fputcsv($csv_file, array($result['project_id'], $result['app_title'], $result['project_pi_firstname']." ".$result['project_pi_lastname'], $result['project_pi_email'], $result['creation_time']));
+	fputcsv($csv_file, array($result['project_id'], $result['app_title'], $result['project_pi_firstname']." ".$result['project_pi_lastname'], $result['project_pi_email'], $result['creation_time'],$result['production_time'],$result['last_logged_event']));
 } 
 
 fclose($csv_file);  

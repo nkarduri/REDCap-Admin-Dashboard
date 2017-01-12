@@ -42,41 +42,20 @@ $last_30days_num = mysqli_num_rows($last_30days_sql);
 $last_90days_sql = db_query($mysql->conso_last_90days());
 $last_90days_num = mysqli_num_rows($last_90days_sql);
 
-// CRSU
-$crsu_prod_num = $mysql->crsu_num_production();
-$crsu_dev_num = $mysql->crsu_num_development();
-$crsu_inact_num = $mysql->crsu_num_inactive();
-$crsu_arch_num = $mysql->crsu_num_archive();
-
-// IHDI
-$ihdi_prod_num = $mysql->ihdi_num_production();
-$ihdi_dev_num = $mysql->ihdi_num_development();
-$ihdi_inact_num = $mysql->ihdi_num_inactive();
-$ihdi_arch_num = $mysql->ihdi_num_archive();
-
-// CTU
-$ctu_prod_num = $mysql->ctu_num_production();
-$ctu_dev_num = $mysql->ctu_num_development();
-$ctu_inact_num = $mysql->ctu_num_inactive();
-$ctu_arch_num = $mysql->ctu_num_archive();
-
-// VEC
-$vec_prod_num = $mysql->vec_num_production();
-$vec_dev_num = $mysql->vec_num_development();
-$vec_inact_num = $mysql->vec_num_inactive();
-$vec_arch_num = $mysql->vec_num_archive();
 
 $template = new Project_Dashboard_Template();
+$template1 = new Project_Dashboard_Template1();
+
+$det_project_sql     = db_query($mysql->det_project());
+$det_project_sql_num  = mysqli_num_rows($det_project_sql);  
+
+
 ?>
 
 <h3>Project Dashboard</h3>
 <br>
 <ul class="nav nav-tabs" id="myTab">
-	<li class="active"><a href="#consortium" data-toggle="tab">CFRI Redcap Consortium</a></li>
-	<li><a href="#crsu" data-toggle="tab">CRSU</a></li>
-	<li><a href="#ihdi" data-toggle="tab">IHDI</a></li>
-	<li><a href="#ctu" data-toggle="tab">CTU</a></li>
-	<li><a href="#vec" data-toggle="tab">VEC</a></li>
+	<li class="active"><a href="#consortium" data-toggle="tab">REDCap Database</a></li>
 </ul>
 
 <!-- Tab panes -->
@@ -86,7 +65,7 @@ $template = new Project_Dashboard_Template();
 		<div id="download_msg"></div>
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<h3 class="panel-title">CFRI Redcap Consortium Dashboard</h3>
+				<h3 class="panel-title">Redcap Admin Dashboard</h3>
 			</div>
 			<div class="panel-body">
 				<table class="dashboard_table table table-striped table-hover">
@@ -140,15 +119,22 @@ $template = new Project_Dashboard_Template();
 									<td>
 									<?php
 									//Project production date 		
-								    $sql = db_query("select production_time from redcap_projects where project_id =". $prod_info_result['project_id']);
+								    
+									echo $prod_info_result['production_time'];
+									
+									/*$sql = db_query("select production_time from redcap_projects where project_id =". $prod_info_result['project_id']);
 								
 									while($row = mysqli_fetch_array($sql))
 									{
 									echo $row['production_time'];
-									}
+									}*/
+									
 									?>
 									</td>
-		
+									 <td>
+									 <?php echo $prod_info_result['last_logged_event']; ?>
+									</td>
+								
 								</tr>
 							<?php
 							} ?>
@@ -157,7 +143,7 @@ $template = new Project_Dashboard_Template();
 						
 						
 						<!-- Development -->
-						<?php $template->dashboard_template_body("development", $development_num, "dev_pid", "dev_pname", "dev_piname"); ?>
+						<?php $template->dashboard_template_body("Development", $development_num, "dev_pid", "dev_pname", "dev_piname"); ?>
 							<tbody>
 							<?php
 							while ( $dev_info_result = db_fetch_array($dev_info_sql) ) { ?>
@@ -194,6 +180,10 @@ $template = new Project_Dashboard_Template();
 									<td>
 									<?php echo '--'; ?>
 									</td>
+									<td>
+									 <?php echo $dev_info_result['last_logged_event']; ?>
+								    </td>
+									
 								</tr>
 							<?php
 							} ?>
@@ -201,7 +191,7 @@ $template = new Project_Dashboard_Template();
 						<?php $template->dashboard_template_footer("conso_development"); ?>
 
 						<!-- Inactive -->
-						<?php $template->dashboard_template_body("inactive", $inactive_num, "", "", ""); ?>
+						<?php $template->dashboard_template_body("Inactive", $inactive_num, "", "", ""); ?>
 							<tbody>
 							<?php
 							while ( $inact_info_result = db_fetch_array($inact_info_sql) ) { ?>
@@ -242,14 +232,15 @@ $template = new Project_Dashboard_Template();
 									<td>
 									<?php
 									//Project production date 		
-								    $sql = db_query("select production_time from redcap_projects where project_id =". $inact_info_result['project_id']);
-								
-									while($row = mysqli_fetch_array($sql))
-									{
-									echo $row['production_time'];
-									}
+								  	echo $inact_info_result['production_time'];
+									
 									?>
 									</td>	
+									
+								    <td>
+									 <?php echo $inact_info_result['last_logged_event']; ?>
+									</td>
+								
 								</tr>
 							<?php
 							} ?>
@@ -257,7 +248,7 @@ $template = new Project_Dashboard_Template();
 						<?php $template->dashboard_template_footer("conso_inactive"); ?>
 
 						<!-- Archive -->
-						<?php $template->dashboard_template_body("archive", $archive_num, "", "", ""); ?>
+						<?php $template->dashboard_template_body("Archive", $archive_num, "", "", ""); ?>
 							<tbody>
 							<?php
 							while ( $arch_info_result = db_fetch_array($arch_info_sql) ) { ?>
@@ -308,12 +299,19 @@ $template = new Project_Dashboard_Template();
 									}
 									?>
 									</td>	
+									
+								    <td>
+									 <?php echo $prod_info_result['last_logged_event']; ?>
+									</td>
+								
 								</tr>
 							<?php
 							} ?>
 							</tbody>
+                       
 						<?php $template->dashboard_template_footer("conso_archive"); ?>
-						
+					
+                      <tbody>   	
 						<tr>
 							<td><b>Total</b></td>
 							<td><b><?php echo $total_result['total_count']; ?><b></td>
@@ -321,6 +319,37 @@ $template = new Project_Dashboard_Template();
 							<td></td>
 						</tr>
 					</tbody>
+                    
+                    <?php $template1->dashboard_template_body1("DET-API", $det_project_sql_num, "prod_pid", "prod_pname","prod_piname","","status",""); ?> 
+                    <tbody>  
+                    <?php 
+                    while ($det_api_info_result = db_fetch_array($det_project_sql)) {                    
+                    ?> 
+                       <tr>
+                       <td><?php echo $det_api_info_result['project_id']; ?></td>
+                       <td><?php echo $det_api_info_result['app_title']; ?></td>
+                       <td><?php echo $det_api_info_result['project_pi_firstname']." ".$det_api_info_result['project_pi_lastname']; ?></td>
+                       <td><a href="mailto: <?php echo $det_api_info_result['project_pi_email']; ?>"><?php echo $det_api_info_result['project_pi_email']; ?></a></td>
+                       <td><?php 
+                       if ($det_api_info_result['status'] == '0' )
+                       echo "<font color='red'>Development</font>";
+                       else if ($det_api_info_result['status'] == '1' )
+                       echo "<font color=blue>Production</font>"; 
+                       
+                       
+                       
+                        ?></td>
+                       <td><?php echo $det_api_info_result['data_entry_trigger_url'];?> </td>
+                       </tr>
+                  
+                  <?php
+                  } ?>
+                
+                   </tbody>         
+                    
+                      <?php $template1->dashboard_template_footer1("det_api"); ?>
+                    
+                          
 				</table>
 
 				<hr>
@@ -365,7 +394,7 @@ $template = new Project_Dashboard_Template();
 							plotShadow: false
 						},
 						title: {
-							text: 'Project Status in CFRI Redcap Consortium'
+							text: 'Project Status in REDCap database'
 						},
 						tooltip: {
 							pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -473,351 +502,7 @@ $template = new Project_Dashboard_Template();
 		
 	</div>
 	
-	<div class="tab-pane" id="crsu">
-		<br>	
-		<div class="panel panel-danger">
-			<div class="panel-heading">
-				<h3 class="panel-title">CRSU Redcap Dashboard</h3>
-			</div>
-			<div class="panel-body">
-				<table class="table table-striped table-hover">
-					<thead>
-						<tr>
-							<td><b>Project Status</b></td>
-							<td><b>Number of projects</b></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Production</td>
-							<td><?php echo $crsu_prod_num; ?></td>
-						</tr>
-						<tr>
-							<td>Development</td>
-							<td><?php echo $crsu_dev_num; ?></td>
-						</tr>
-						<tr>
-							<td>Inactive</td>
-							<td><?php echo $crsu_inact_num; ?></td>
-						</tr>
-						<tr>
-							<td>Archive</td>
-							<td><?php echo $crsu_arch_num; ?></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<br>
-		<div class="panel panel-warning">
-			<div class="panel-heading">
-				<h3 class="panel-title">Graph</h3>
-			</div>
-			<div class="panel-body">
-				<script type="text/javascript">
-				$(function () {
-					$('#crsu-project-bar-chart').highcharts({
-						chart: {
-							plotBackgroundColor: null,
-							plotBorderWidth: null,
-							plotShadow: false
-						},
-						title: {
-							text: 'Project Status in CRSU'
-						},
-						tooltip: {
-							pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-						},
-						plotOptions: {
-							pie: {
-								allowPointSelect: true,
-								cursor: 'pointer',
-								dataLabels: {
-									enabled: true,
-									format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-									style: {
-										color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-									}
-								}
-							}
-						},
-						series: [{
-							type: 'pie',
-							name: 'Browser share',
-							data: [
-								{ name: 'Production',  y: <?php echo $crsu_prod_num; ?>,  color: '#428bca' },
-								{ name: 'Development', y: <?php echo $crsu_dev_num; ?>, color: '#5cb85c' },
-								{ name: 'Inactive',    y: <?php echo $crsu_inact_num; ?>,    color: '#f0ad4e' },
-								{ name: 'Archive',     y: <?php echo $crsu_arch_num; ?>,     color: '#d9534f' }
-							]
-						}]
-					});
-				});
-				</script>
-				<div id="crsu-project-bar-chart"></div>
-			</div>
-		</div>
-		
-	</div>
 	
-	<div class="tab-pane" id="ihdi">
-		<br>	
-		<div class="panel panel-danger">
-			<div class="panel-heading">
-				<h3 class="panel-title">IHDI Redcap Dashboard</h3>
-			</div>
-			<div class="panel-body">
-				<table class="table table-striped table-hover">
-					<thead>
-						<tr>
-							<td><b>Project Status</b></td>
-							<td><b>Number of projects</b></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Production</td>
-							<td><?php echo $ihdi_prod_num; ?></td>
-						</tr>
-						<tr>
-							<td>Development</td>
-							<td><?php echo $ihdi_dev_num; ?></td>
-						</tr>
-						<tr>
-							<td>Inactive</td>
-							<td><?php echo $ihdi_inact_num; ?></td>
-						</tr>
-						<tr>
-							<td>Archive</td>
-							<td><?php echo $ihdi_arch_num; ?></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<br>
-		<div class="panel panel-warning">
-			<div class="panel-heading">
-				<h3 class="panel-title">Graph</h3>
-			</div>
-			<div class="panel-body">
-				<script type="text/javascript">
-				$(function () {
-					$('#ihdi-project-bar-chart').highcharts({
-						chart: {
-							plotBackgroundColor: null,
-							plotBorderWidth: null,
-							plotShadow: false
-						},
-						title: {
-							text: 'Project Status in IHDI'
-						},
-						tooltip: {
-							pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-						},
-						plotOptions: {
-							pie: {
-								allowPointSelect: true,
-								cursor: 'pointer',
-								dataLabels: {
-									enabled: true,
-									format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-									style: {
-										color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-									}
-								}
-							}
-						},
-						series: [{
-							type: 'pie',
-							name: 'Browser share',
-							data: [
-								{ name: 'Production',  y: <?php echo $ihdi_prod_num; ?>,  color: '#428bca' },
-								{ name: 'Development', y: <?php echo $ihdi_dev_num; ?>, color: '#5cb85c' },
-								{ name: 'Inactive',    y: <?php echo $ihdi_inact_num; ?>,    color: '#f0ad4e' },
-								{ name: 'Archive',     y: <?php echo $ihdi_arch_num; ?>,     color: '#d9534f' }
-							]
-						}]
-					});
-				});
-				</script>
-				<div id="ihdi-project-bar-chart"></div>
-			</div>
-		</div>
-		
-	</div>
-	
-	<div class="tab-pane" id="ctu">
-		<br>	
-		<div class="panel panel-danger">
-			<div class="panel-heading">
-				<h3 class="panel-title">CTU Redcap Dashboard</h3>
-			</div>
-			<div class="panel-body">
-				<table class="table table-striped table-hover">
-					<thead>
-						<tr>
-							<td><b>Project Status</b></td>
-							<td><b>Number of projects</b></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><h4>Production</h4></td>
-							<td><?php echo $ctu_prod_num; ?></td>
-						</tr>
-						<tr>
-							<td><h4>Development</h4></td>
-							<td><?php echo $ctu_dev_num; ?></td>
-						</tr>
-						<tr>
-							<td><h4>Inactive</h4></td>
-							<td><?php echo $ctu_inact_num; ?></td>
-						</tr>
-						<tr>
-							<td><h4>Archive</h4></td>
-							<td><?php echo $ctu_arch_num; ?></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<br>
-		<div class="panel panel-warning">
-			<div class="panel-heading">
-				<h3 class="panel-title">Graph</h3>
-			</div>
-			<div class="panel-body">
-				<script type="text/javascript">
-				$(function () {
-					$('#ctu-project-bar-chart').highcharts({
-						chart: {
-							plotBackgroundColor: null,
-							plotBorderWidth: null,
-							plotShadow: false
-						},
-						title: {
-							text: 'Project Status in CTU'
-						},
-						tooltip: {
-							pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-						},
-						plotOptions: {
-							pie: {
-								allowPointSelect: true,
-								cursor: 'pointer',
-								dataLabels: {
-									enabled: true,
-									format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-									style: {
-										color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-									}
-								}
-							}
-						},
-						series: [{
-							type: 'pie',
-							name: 'Browser share',
-							data: [
-								{ name: 'Production',  y: <?php echo $ctu_prod_num; ?>,  color: '#428bca' },
-								{ name: 'Development', y: <?php echo $ctu_dev_num; ?>, color: '#5cb85c' },
-								{ name: 'Inactive',    y: <?php echo $ctu_inact_num; ?>,    color: '#f0ad4e' },
-								{ name: 'Archive',     y: <?php echo $ctu_arch_num; ?>,     color: '#d9534f' }
-							]
-						}]
-					});
-				});
-				</script>
-				<div id="ctu-project-bar-chart"></div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="tab-pane" id="vec">
-		<br>	
-		<div class="panel panel-danger">
-			<div class="panel-heading">
-				<h3 class="panel-title">VEC Redcap Dashboard</h3>
-			</div>
-			<div class="panel-body">
-				<table class="table table-striped table-hover">
-					<thead>
-						<tr>
-							<td><b>Project Status</b></td>
-							<td><b>Number of projects</b></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Production</td>
-							<td><?php echo $vec_prod_num; ?></td>
-						</tr>
-						<tr>
-							<td>Development</td>
-							<td><?php echo $vec_dev_num; ?></td>
-						</tr>
-						<tr>
-							<td>Inactive</td>
-							<td><?php echo $vec_inact_num; ?></td>
-						</tr>
-						<tr>
-							<td>Archive</td>
-							<td><?php echo $vec_arch_num; ?></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<br>
-		<div class="panel panel-warning">
-			<div class="panel-heading">
-				<h3 class="panel-title">Graph</h3>
-			</div>
-			<div class="panel-body">
-				<script type="text/javascript">
-				$(function () {
-					$('#vec-project-bar-chart').highcharts({
-						chart: {
-							plotBackgroundColor: null,
-							plotBorderWidth: null,
-							plotShadow: false
-						},
-						title: {
-							text: 'Project Status in vec'
-						},
-						tooltip: {
-							pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-						},
-						plotOptions: {
-							pie: {
-								allowPointSelect: true,
-								cursor: 'pointer',
-								dataLabels: {
-									enabled: true,
-									format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-									style: {
-										color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-									}
-								}
-							}
-						},
-						series: [{
-							type: 'pie',
-							name: 'Browser share',
-							data: [
-								{ name: 'Production',  y: <?php echo $vec_prod_num; ?>,  color: '#428bca' },
-								{ name: 'Development', y: <?php echo $vec_dev_num; ?>, color: '#5cb85c' },
-								{ name: 'Inactive',    y: <?php echo $vec_inact_num; ?>,    color: '#f0ad4e' },
-								{ name: 'Archive',     y: <?php echo $vec_arch_num; ?>,     color: '#d9534f' }
-							]
-						}]
-					});
-				});
-				</script>
-				<div id="vec-project-bar-chart"></div>
-			</div>
-		</div>
-	</div>
 	
 	<div id="download_load"></div>
 </div>
@@ -828,6 +513,7 @@ $(document).ready(function() {
 	$('#development').modal('hide');
 	$('#inactive').modal('hide');
 	$('#archive').modal('hide');
+    $('#DET-API').modal('hide');
 	
 	$("#btn-conso-prod").click(function() {
 		$("#download_load").load("csv_download.php", {name: "conso", type: "production"});

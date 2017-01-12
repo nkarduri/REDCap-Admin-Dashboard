@@ -12,24 +12,7 @@ $mysql = new MySQL();
 $conso_total_centre_sql = db_query($mysql->conso_total_centre());
 $conso_total_centre = db_fetch_assoc($conso_total_centre_sql);
 
-//$conso_total_record_sql = db_query($mysql->conso_total_record());
-//$conso_total_record = db_fetch_assoc($conso_total_record_sql);
 
-// CRSU
-$crsu_total_centre = $mysql->crsu_total_centre();
-//$crsu_total_record = $mysql->crsu_total_record();
-
-// IHDI
-$ihdi_total_centre = $mysql->ihdi_total_centre();
-//$ihdi_total_record = $mysql->ihdi_total_record();
-
-// CTU
-$ctu_total_centre = $mysql->ctu_total_centre();
-//$ctu_total_record = $mysql->ctu_total_record();
-
-// VEC
-$vec_total_centre = $mysql->vec_total_centre();
-//$vec_total_record = $mysql->vec_total_record();
 
 ?>
 <h3>Group Dashboard</h3>
@@ -43,32 +26,17 @@ $vec_total_centre = $mysql->vec_total_centre();
 			<thead>
 				<tr>
 					<th>Type</th>
-					<th>CFRI Redcap Consortium</th>
-					<th>CRSU</th>
-					<th>IHDI</th>
-					<th>CTU</th>
-					<th>VEC</th>
+					<th>REDCap Database</th>
+					
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<td>Number of centres</td>
 					<td><?php echo $conso_total_centre['total_count']; ?></td>
-					<td><?php echo $crsu_total_centre; ?></td>
-					<td><?php echo $ihdi_total_centre; ?></td>
-					<td><?php echo $ctu_total_centre; ?></td>
-					<td><?php echo $vec_total_centre; ?></td>
+		
 				</tr>
-				
-                 <!--
-                <tr>
-					<td>Number of records</td>
-					<td><?php /*echo $conso_total_record['total_count'];*/ ?></td>
-					<td><?php /* echo $crsu_total_record; */ ?></td>
-					<td><?php /* echo $ihdi_total_record; */?></td>
-					<td><?php /* echo $ctu_total_record; */ ?></td>
-					<td><?php /* echo $vec_total_record; */ ?></td>
-				</tr> -->
+			
 			</tbody>
 		</table>
 	</div>
@@ -111,30 +79,14 @@ $vec_total_centre = $mysql->vec_total_centre();
 						},
 						plotOptions: {
 							column: {
-								pointPadding: 0.2,
+								pointPadding: 0.3,
 								borderWidth: 0
 							}
 						},
 						series: [{
-							name: 'CFRI Consortium',
+							name: 'REDCap Database',
 							data: [<?php echo $conso_total_centre['total_count']; ?>],
 							color: '#428bca'				
-						}, {
-							name: 'CRSU',
-							data: [<?php echo $crsu_total_centre; ?>],
-							color: '#5cb85c'
-						}, {
-							name: 'IHDI',
-							data: [<?php echo $ihdi_total_centre; ?>],
-							color: '#f0ad4e'
-						}, {
-							name: 'CTU',
-							data: [<?php echo $ctu_total_centre; ?>],
-							color: '#d9534f'
-						}, {
-							name: 'vec',
-							data: [<?php echo $vec_total_centre; ?>],
-							color: '#777'
 						}]
 					});
 				});

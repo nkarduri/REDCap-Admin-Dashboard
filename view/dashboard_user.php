@@ -57,27 +57,14 @@ if($suspended_user_num == "")
  {
    $suspended_user_num = "0";
  } 
-// CRSU
-$crsu_total_user = $mysql->crsu_total_user();
 
-// IHDI
-$ihdi_total_user = $mysql->ihdi_total_user();
-
-// CTU
-$ctu_total_user = $mysql->ctu_total_user();
-
-// VEC
-$vec_total_user = $mysql->vec_total_user();
+ 
 ?>
 
 <h3>User Dashboard</h3>
 <br>
 <ul class="nav nav-tabs" id="myTab">
-    <li class="active"><a href="#user_consortium" data-toggle="tab">CFRI Redcap Consortium</a></li>
-    <li><a href="#user_crsu" data-toggle="tab">CRSU</a></li>
-    <li><a href="#user_ihdi" data-toggle="tab">IHDI</a></li>
-    <li><a href="#user_ctu" data-toggle="tab">CTU</a></li>
-    <li><a href="#user_vec" data-toggle="tab">VEC</a></li>
+    <li class="active"><a href="#user_consortium" data-toggle="tab">REDCap Database</a></li>
 </ul>
 
 <div class="tab-content">
@@ -85,7 +72,7 @@ $vec_total_user = $mysql->vec_total_user();
         <br>    
         <div class="panel panel-info">
             <div class="panel-heading">
-                <h3 class="panel-title">CFRI Redcap Consortium Dashboard</h3>
+                <h3 class="panel-title">Redcap Admin Dashboard</h3>
             </div>
             <div class="panel-body">
                 <table class="table table-striped table-hover">
@@ -121,6 +108,8 @@ $vec_total_user = $mysql->vec_total_user();
                                                             <th><input id="total_fname" type="text" class="form-control" placeholder="First Name" /></th>
                                                             <th><input id="total_lname" type="text" class="form-control" placeholder="Last Name" /></th>
                                                             <th><b>E-mail</b></th>
+                                                            <th>Sponsor</th>
+                                                            <th>Sponsor Email</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -131,6 +120,25 @@ $vec_total_user = $mysql->vec_total_user();
                                                             <td><?php echo $conso_total_user_result['user_firstname']; ?></td>
                                                             <td><?php echo $conso_total_user_result['user_lastname']; ?></td>
                                                             <td><a href="mailto: <?php echo $conso_total_user_result['user_email']; ?>"><?php echo $conso_total_user_result['user_email']; ?></a></td>
+                                                            <td><?php echo $conso_total_user_result['user_sponsor'];?></td>
+                                                            <td>
+                                                            <?php 
+                                  
+                                                              if(isset($conso_total_user_result['user_sponsor']))
+                                                              {
+                                                             
+                                                              $usersponsor = $conso_total_user_result['user_sponsor'];
+                                                               
+                                                              $sql = db_query("select user_email from redcap_user_information where username = '$usersponsor'");    
+                                                            
+                                                              $result = db_fetch_array($sql);
+                                                              
+                                                              echo $result['user_email'];                        
+                                                              }
+                                                              
+                                                              ?>
+      
+                                                            </td>
                                                         </tr>
                                                         <?php
                                                         } ?>
@@ -172,6 +180,8 @@ $vec_total_user = $mysql->vec_total_user();
                                                             <th><input id="active_fname" type="text" class="form-control" placeholder="First Name" /></th>
                                                             <th><input id="active_lname" type="text" class="form-control" placeholder="Last Name" /></th>
                                                             <th><b>E-mail</b></td>
+                                                            <th>Sponsor</th>
+                                                            <th>Sponsor Email</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -185,6 +195,8 @@ $vec_total_user = $mysql->vec_total_user();
                                                             <td><?php echo $conso_last6month_user_result['user_firstname']; ?></td>
                                                             <td><?php echo $conso_last6month_user_result['user_lastname']; ?></td>
                                                             <td><a href="mailto: <?php echo $conso_last6month_user_result['user_email']; ?>"><?php echo $conso_last6month_user_result['user_email']; ?></a></td>
+                                                            <td><?php echo $conso_last6month_user_result['user_sponsor']; ?></td>
+                                                            <td></td>
                                                         </tr>
                                                         <?php
                                                         } ?>
@@ -226,6 +238,8 @@ $vec_total_user = $mysql->vec_total_user();
                                                             <th><input id="active_fname" type="text" class="form-control" placeholder="First Name" /></th>
                                                             <th><input id="active_lname" type="text" class="form-control" placeholder="Last Name" /></th>
                                                             <th><b>E-mail</b></td>
+                                                            <th>Sponsor</th>
+                                                            <th>Sponsor Email</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -239,6 +253,8 @@ $vec_total_user = $mysql->vec_total_user();
                                                             <td><?php echo $conso_suspended_user_result['user_firstname']; ?></td>
                                                             <td><?php echo $conso_suspended_user_result['user_lastname']; ?></td>
                                                             <td><a href="mailto: <?php echo $conso_suspended_user_result['user_email']; ?>"><?php echo $conso_suspended_user_result['user_email']; ?></a></td>
+                                                            <td><?php echo $conso_suspended_user_result['user_sponsor']; ?></td>
+                                                            <td></td>
                                                         </tr>
                                                         <?php
                                                         } ?>
@@ -279,11 +295,16 @@ $vec_total_user = $mysql->vec_total_user();
                                                 <table class="table table-striped table-hover">
                                                     <thead>
                                                         <tr class="filters">
+                                                        
+                                                            <th>Project Title</th>
+                                                            <th>Status</th>
                                                             <th><input id="active_username" type="text" class="form-control" placeholder=" Project ID" /></th>
                                                             <th><input id="active_username" type="text" class="form-control" placeholder="username" /></th>
                                                             <th><input id="active_fname" type="text" class="form-control" placeholder="First Name" /></th>
                                                             <th><input id="active_lname" type="text" class="form-control" placeholder="Last Name" /></th>
                                                             <th><b>E-mail</b></td>
+                                                            <th>Sponsor</th>
+                                                            <th>Sponsor Email</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -295,11 +316,58 @@ $vec_total_user = $mysql->vec_total_user();
                                                               
                                                         ?>
                                                         <tr>
+                                                          <td>
+                                                            <?php
+                                                            
+                                                             
+                                                              if(isset($api_user_result['project_id']))
+                                                              {
+                                                                  
+                                                                  
+                                                              $project_id = $api_user_result['project_id'];
+                                                               
+                                                              $sql = db_query("select app_title from redcap_projects where project_id = '$project_id'");    
+                                                            
+                                                              $result = db_fetch_array($sql);
+                                                              
+                                                              echo $result['app_title'];
+                                                                                      
+                                                              }
+                                                             ?>
+                                                           </td>
+                                                        
+                                                             <td>
+                                                            <?php
+                                                            
+                                                              if(isset($api_user_result['project_id']))
+                                                              {
+                                                                  
+                                                                  
+                                                              $project_id = $api_user_result['project_id'];
+                                                               
+                                                              $sql = db_query("select status from redcap_projects where project_id = '$project_id'");    
+                                                            
+                                                              $result = db_fetch_array($sql);
+                                                              
+                                                               if ($result['status'] == '0' )
+                                                               echo "<font color='red'>Development</font>";
+                                                               else if ($result['status'] == '1' )
+                                                               echo "<font color=blue>Production</font>"; 
+                                                                                     
+                                                              }
+                                                             ?>
+                                                           </td> 
+                                                        
+                                                        
+                                                        
                                                             <td><?php echo $api_user_result['project_id']; ?></td>
-                                                             <td><?php echo $api_user_result['username']; ?></td>
+                                                          
+                                                            <td><?php echo $api_user_result['username']; ?></td>
                                                             <td><?php echo $api_user_result['user_firstname']; ?></td>
                                                             <td><?php echo $api_user_result['user_lastname']; ?></td>
                                                             <td><a href="mailto: <?php echo $api_user_result['user_email']; ?>"><?php echo $api_user_result['user_email']; ?></a></td>
+                                                            <td><?php echo $api_user_result['user_sponsor']; ?></td>
+                                                            <td></td>
                                                         </tr>
                                                         
                                                         <?php
@@ -341,11 +409,18 @@ $vec_total_user = $mysql->vec_total_user();
                                                 <table class="table table-striped table-hover">
                                                     <thead>
                                                         <tr class="filters">
+                                                           <th>Project Title</th>
+                                                           <th>Status</th>
                                                             <th><input id="active_username" type="text" class="form-control" placeholder=" Project ID" /></th>
                                                             <th><input id="active_username" type="text" class="form-control" placeholder="username" /></th>
                                                             <th><input id="active_fname" type="text" class="form-control" placeholder="First Name" /></th>
                                                             <th><input id="active_lname" type="text" class="form-control" placeholder="Last Name" /></th>
                                                             <th><b>E-mail</b></td>
+                                                            <th>Sponsor</th>
+                                                            <th>Sponsor Email</th>
+                                                            <th>Allows user to collect data offline</th>
+                                                            <th>Allow user to download data for all records</th>
+                                                            <th>API token</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -357,11 +432,77 @@ $vec_total_user = $mysql->vec_total_user();
                                                               
                                                         ?>
                                                         <tr>
+                                                        
+                                                            <td>
+                                                            <?php
+                                                            
+                                                              if(isset($app_user_result['project_id']))
+                                                              {
+                                                                  
+                                                                  
+                                                              $project_id = $app_user_result['project_id'];
+                                                               
+                                                              $sql = db_query("select app_title from redcap_projects where project_id = '$project_id'");    
+                                                            
+                                                              $result = db_fetch_array($sql);
+                                                              
+                                                              echo $result['app_title'];
+                                                                                      
+                                                              }
+                                                             ?>
+                                                           </td>
+                                                        
+                                                            <td>
+                                                            <?php
+                                                            
+                                                              if(isset($app_user_result['project_id']))
+                                                              {
+                                                                  
+                                                                  
+                                                              $project_id = $app_user_result['project_id'];
+                                                               
+                                                              $sql = db_query("select status from redcap_projects where project_id = '$project_id'");    
+                                                            
+                                                              $result = db_fetch_array($sql);
+                                                              
+                                                               if ($result['status'] == '0' )
+                                                               echo "<font color='red'>Development</font>";
+                                                               else if ($result['status'] == '1' )
+                                                               echo "<font color=blue>Production</font>"; 
+                                                                                     
+                                                              }
+                                                             ?>
+                                                           </td> 
+                                                        
+                                                        
+                                                    
                                                             <td><?php echo $app_user_result['project_id']; ?></td>
                                                              <td><?php echo $app_user_result['username']; ?></td>
                                                             <td><?php echo $app_user_result['user_firstname']; ?></td>
                                                             <td><?php echo $app_user_result['user_lastname']; ?></td>
                                                             <td><a href="mailto: <?php echo $app_user_result['user_email']; ?>"><?php echo $app_user_result['user_email']; ?></a></td>
+                                                            <td><?php echo $app_user_result['user_sponsor']; ?></td>
+                                                            <td>
+                                                            <?php 
+                                  
+                                                              if(isset($app_user_result['user_sponsor']))
+                                                              {
+                                                             
+                                                              $usersponsor = $app_user_result['user_sponsor'];
+                                                               
+                                                              $sql = db_query("select user_email from redcap_user_information where username = '$usersponsor'");    
+                                                            
+                                                              $result = db_fetch_array($sql);
+                                                              
+                                                              echo $result['user_email'];                        
+                                                              }
+                                                    
+                                                              ?>
+                                                            </td>
+                                                            <td><?php if($app_user_result['mobile_app'] == '1') echo "Yes"; else echo ""; ?></td>
+                                                            <td><?php if($app_user_result['mobile_app_download_data'] == '1') echo "Yes"; else echo ""; ?></td>
+                                                            <td><?php 
+                                                            if(!empty($app_user_result['api_token'])) echo "*************"; else echo ""; ?></td>
                                                         </tr>
                                                         
                                                         <?php
@@ -436,7 +577,7 @@ $vec_total_user = $mysql->vec_total_user();
                             type: 'column'
                         },
                         title: {
-                            text: 'CFRI Redcap Consortium'
+                            text: 'REDCap Datbase'
                         },
                         subtitle: {
                             text: ''
@@ -552,122 +693,7 @@ $vec_total_user = $mysql->vec_total_user();
         
     </div>
     
-    <div class="tab-pane" id="user_crsu">
-        <br>    
-        <div class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title">CRSU Redcap Dashboard</h3>
-            </div>
-            <div class="panel-body">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <td><b>User Status</b></td>
-                            <td><b>Number of users</b></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Total</td>
-                            <td><?php echo $crsu_total_user; ?></td>
-                        </tr>
-                        <tr>
-                            <td>Active (last 6 months)</td>
-                            <td>n/a</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>        
-    </div>
-    
-    <div class="tab-pane" id="user_ihdi">
-        <br>    
-        <div class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title">IHDI Redcap Dashboard</h3>
-            </div>
-            <div class="panel-body">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <td><b>User Status</b></td>
-                            <td><b>Number of users</b></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <tbody>
-                        <tr>
-                            <td>Total</td>
-                            <td><?php echo $ihdi_total_user; ?></td>
-                        </tr>
-                        <tr>
-                            <td>Active (last 6 months)</td>
-                            <td>n/a</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    
-    <div class="tab-pane" id="user_ctu">
-        <br>    
-        <div class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title">CTU Redcap Dashboard</h3>
-            </div>
-            <div class="panel-body">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <td><b>User Status</b></td>
-                            <td><b>Number of users</b></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Total</td>
-                            <td><?php echo $ctu_total_user; ?></td>
-                        </tr>
-                        <tr>
-                            <td>Active (last 6 months)</td>
-                            <td>n/a</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-        <div class="tab-pane" id="user_vec">
-        <br>    
-        <div class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title">VEC Redcap Dashboard</h3>
-            </div>
-            <div class="panel-body">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <td><b>User Status</b></td>
-                            <td><b>Number of users</b></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Total</td>
-                            <td><?php echo $vec_total_user; ?></td>
-                        </tr>
-                        <tr>
-                            <td>Active (last 6 months)</td>
-                            <td>n/a</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    
+   
     <div id="download_load"></div>
 </div>
 <script type="text/javascript" src="js/filter_user.js"></script>

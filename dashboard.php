@@ -1,4 +1,11 @@
 <?php
+
+/*
+ Author name : Naveen Karduri 
+ BC Childrens Hospital Research 
+
+*/
+
 require_once '../../redcap_connect.php';
 include_once "sql_list.php";
 
@@ -7,11 +14,8 @@ $userid = $_SESSION['username'];
 $user_info = db_query("SELECT username FROM redcap_user_information WHERE username='".$userid."' AND super_user='1'");
 $user_info_num = mysqli_num_rows($user_info);	
 
-$user = array('cfriadmin','admin_dm','amckerrow_sa','nkarduri','eportales','nkarduri_test','Eportales','mstonefield','sturvey','jfoley','gdhugga','swalkow_sa');
-
-if(in_array($userid,$user))
+if(!empty($user_info_num))
 {
-//echo "session: ".$_SESSION['myusername'];
 
 $mysql = new MySQL();
 $user_name = db_query($mysql->get_username($userid));
@@ -31,23 +35,9 @@ $conso_total_user = mysqli_num_rows($conso_total_user_sql);
 $conso_total_centre_sql = db_query($mysql->conso_total_centre());
 $conso_total_centre = db_fetch_assoc($conso_total_centre_sql);
 
-/*
-$conso_total_record_sql = db_query($mysql->conso_total_record());
-$conso_total_record = db_fetch_assoc($conso_total_record_sql);
-*/
-
 $conso_version_sql = db_query($mysql->conso_redcap_version());
 $conso_version_result = db_fetch_assoc($conso_version_sql);
 
-
-// CRSU
-$crsu_prod_num = $mysql->crsu_num_production();
-$crsu_dev_num = $mysql->crsu_num_development();
-$crsu_total_user = $mysql->crsu_total_user();
-$crsu_total_centre = $mysql->crsu_total_centre();
-$crsu_total_record = $mysql->crsu_total_record();
-$crsu_db_size = $mysql->crsu_db_size();
-$crsu_version = $mysql->crsu_version();
 
 ?>
 <!DOCTYPE html>
@@ -59,7 +49,7 @@ $crsu_version = $mysql->crsu_version();
 	<meta name="author" content="hoseok brandon" />
 	<meta name="keywords" content="redcap" />
 	<meta name="description" content="resume builder" />
-	<title>CFRI Data Management</title>
+	<title>REDCap Admin Dashboard</title>
 		
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.3.1.1.css" />
 	<link rel="stylesheet" type="text/css" href="css/index.css" />
@@ -78,13 +68,8 @@ $crsu_version = $mysql->crsu_version();
 <div class="container">
 
 	<div class="header panel">
-		<div class="row">
-			<div class="col-md-3 col-md-offset-3"></div>
-			<div class="col-md-3 col-md-offset-3">
-				<img class="pic img-circle" src="img/default_img.jpg" alt="profile pic" />
-			</div>
-		</div>		
-		<div class="name"><small><?php echo $name_result['user_firstname']; ?> <?php echo $name_result['user_lastname']; ?></small></div>
+		
+		<div class="name"><small> Logged in as: <?php echo $name_result['user_firstname']; ?> <?php echo $name_result['user_lastname']; ?></small></div>
 	</div>
 	<br></br>
     <hr>
@@ -126,12 +111,12 @@ $crsu_version = $mysql->crsu_version();
 		
         <div class="col-sm-9">
 			<div id="home_load">
-				<h3>Welcome to CFRI - CSRU Data Management</h3>
+				<h3>Welcome to REDCap Admin Dashboard</h3>
 				<br>
 				
 				<div class="alert alert-info">
 					
-					<p>REDCap (Research Electronic Data Capture) is a web-based, metadata-driven EDC software solution and workflow methodology for designing and capturing data for research studies. REDCap allows users to build and manage online surveys and research databases quickly and securely. REDCap at CFRI is managed by the CRSU data management team in collaboration with CFRI's Research IT services office.</p>
+					<p>REDCap (Research Electronic Data Capture) is a web-based, metadata-driven EDC software solution and workflow methodology for designing and capturing data for research studies. REDCap allows users to build and manage online surveys and research databases quickly and securely.</p>
 				</div>
 				
 				<div class="panel panel-primary">
@@ -143,45 +128,31 @@ $crsu_version = $mysql->crsu_version();
 							<thead>
 								<tr>
 									<th><b>Type</b></th>
-									<th><b>CFRI Consortium</b> <span class="label label-success">ver <?php echo $conso_version_result['value']; ?></span></th>
-									<th><b>CRSU</b> <span class="label label-success">ver <?php echo $crsu_version; ?></span></th>
-									<th><b>Total</b></th>
+									<th><b>Database</b> <span class="label label-success">ver <?php echo $conso_version_result['value']; ?></span></th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 									<td>Projects in Production</td>
 									<td><?php echo $conso_prod_num; ?></td>
-									<td><?php echo $crsu_prod_num; ?></td>
-									<td><?php echo (int) $conso_prod_num + (int) $crsu_prod_num; ?></td>
+									
 								</tr>
 								<tr>
 									<td>Projects in Development</td>
 									<td><?php echo $conso_dev_num; ?></td>
-									<td><?php echo $crsu_dev_num; ?></td>
-									<td><?php echo (int) $conso_dev_num + (int) $crsu_dev_num; ?></td>
+									
 								</tr>
 								<tr>
 									<td>Number of total users</td>
 									<td><?php echo $conso_total_user; ?></td>
-									<td><?php echo $crsu_total_user; ?></td>
-									<td><?php echo (int) $conso_total_user + (int) $crsu_total_user; ?></td>
+									
 								</tr>
 								<tr>
 									<td>Number of centres</td>
 									<td><?php echo $conso_total_centre['total_count']; ?></td>
-									<td><?php echo $crsu_total_centre; ?></td>
-									<td><?php echo (int) $conso_total_centre['total_count'] + (int) $crsu_total_centre; ?></td>
+									
 								</tr>
-                               
-                                <!--
-								<tr>
-									<td>Number of records</td>
-									<td><?php //echo $conso_total_record['total_count']; ?></td>
-									<td><?php //echo $crsu_total_record; ?></td>
-									<td><?php //echo (int) $conso_total_record['total_count'] + (int) $crsu_total_record; ?></td>
-								</tr>
-                                -->
+                                
                                 
 							</tbody>
 							<tbody id="db_size_load"></tbody>
@@ -194,36 +165,14 @@ $crsu_version = $mysql->crsu_version();
 											<div class="col-sm-5"><button id="db_size" class="btn btn-warning btn-xs" type="button">Click to view</button></div>
 										</div>
 									</td>
-									<td><?php echo round($crsu_db_size); ?> (MB)</td>
-									<td>n/a</td>									
+																
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
-				<!--
-				<div class="panel panel-danger">
-					<div class="panel-heading">
-						<h3 class="panel-title">Clients</h3>
-					</div>
-					<div class="panel-body">
-						<a href="http://hipdysplasia.org/" target="_blank">
-						International Hip Dysplasia Institute <br>
-							<img id="ihdi-tooltip" class="img-thumbnail" src="img/logo.png" alt="ihdi-logo" data-toggle="tooltip" data-placement="right" title="Go to IHDI" />
-						</a>
-						<br></br>
-						<a href="http://vec.med.ubc.ca/" target="_blank">
-						Vaccine Evaluation Center <br>
-							<img id="vec-tooltip" class="img-rounded" src="img/vec_logo.png" alt="vec-logo" data-toggle="tooltip" data-placement="right" title="Go to VEC" />
-						</a>
-						<br></br>
-						<a href="#" target="_blank">CTU</a>
-					</div>
-				</div> -->
-				<script>
-					$('#ihdi-tooltip').tooltip('hide');
-					$('#vec-tooltip').tooltip('hide');
-				</script>
+				
+
 				
 			</div>
 			<div id="profile_load" style="display: none;"></div>
